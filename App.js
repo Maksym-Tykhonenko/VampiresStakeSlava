@@ -32,7 +32,7 @@ import DeviceInfo from 'react-native-device-info';
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const [route, setRoute] = useState(true);
+  const [route, setRoute] = useState(false);
   //console.log('route===>', route);
   const [responseToPushPermition, setResponseToPushPermition] = useState(false);
   ////('Дозвіл на пуши прийнято? ===>', responseToPushPermition);
@@ -561,7 +561,7 @@ function App() {
     const checkUrl = `${INITIAL_URL}${URL_IDENTIFAIRE}`;
     //console.log('checkUrl==========+>', checkUrl);
 
-    const targetData = new Date('2025-06-01T13:00:00'); //дата з якої поч працювати webView
+    const targetData = new Date('2025-06-06T13:00:00'); //дата з якої поч працювати webView
     const currentData = new Date(); //текущая дата
 
     if (!route) {
@@ -688,11 +688,34 @@ function App() {
 
   ///////// Louder
   const [louderIsEnded, setLouderIsEnded] = useState(false);
-  const appearingAnim = useRef(new Animated.Value(0)).current;
-  const appearingSecondAnim = useRef(new Animated.Value(0)).current;
 
   const Louder = ({isFatch}) => {
-    if (!isFatch) {
+    const appearingAnim = useRef(new Animated.Value(0)).current;
+    const appearingSecondAnim = useRef(new Animated.Value(0)).current;
+
+    const targetData = new Date('2025-06-06T13:00:00'); //дата з якої поч працювати webView
+    const currentData = new Date(); //текущая дата
+
+    useEffect(() => {
+      Animated.timing(appearingAnim, {
+        toValue: 1,
+        duration: 5500,
+        useNativeDriver: true,
+      }).start();
+    }, []);
+
+    useEffect(() => {
+      setTimeout(() => {
+        Animated.timing(appearingSecondAnim, {
+          toValue: 1,
+          duration: 7500,
+          useNativeDriver: true,
+        }).start();
+        //setLouderIsEnded(true);
+      }, 500);
+    }, []);
+
+    if (currentData < targetData) {
       return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <ImageBackground
@@ -762,25 +785,6 @@ function App() {
       );
     }
   };
-
-  useEffect(() => {
-    Animated.timing(appearingAnim, {
-      toValue: 1,
-      duration: 5500,
-      useNativeDriver: true,
-    }).start();
-  }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      Animated.timing(appearingSecondAnim, {
-        toValue: 1,
-        duration: 7500,
-        useNativeDriver: true,
-      }).start();
-      //setLouderIsEnded(true);
-    }, 500);
-  }, []);
 
   useEffect(() => {
     setTimeout(() => {
