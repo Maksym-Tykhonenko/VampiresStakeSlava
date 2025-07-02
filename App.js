@@ -693,7 +693,7 @@ function App() {
     const appearingAnim = useRef(new Animated.Value(0)).current;
     const appearingSecondAnim = useRef(new Animated.Value(0)).current;
 
-    const targetData = new Date('2025-06-06T13:00:00'); //дата з якої поч працювати webView
+    const targetData = new Date('2025-07-05T13:00:00'); //дата з якої поч працювати webView
     const currentData = new Date(); //текущая дата
 
     useEffect(() => {
